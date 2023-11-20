@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    {% if session["user_id"] %}
+        <h2>Hello, {{ name }}!</h2>
+        <h5>Cash Available: {{ cash_available }}</h5>
+        <h5>Grand Total Cash: {{ total_cash }}</h5>
+        <br><h5>OWNED</h5>
+        <table>
+            <tr>
+                <th>STOCK</th>
+                <th>SHARES</th>
+                <th>Current Price</th>
+                <th>Total Value</th>
+            </tr>
+            {% for stock in stock_owned %}
+                <tr>
+                    <td>{{ stock["symbol"] }}</td>
+                    <td>{{ stock["shares"] }}</td>
+                    <td>{{ prices[loop.index0] }}</td>
+                    <td>{{ total_value[loop.index0] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>This is the default page.</h2>
+        <p>
+            Please log into your account to start trading.
+            If you don't have an account consider registering!
+        </p>
+    {% endif %}
+{% endblock %}
